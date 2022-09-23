@@ -1,18 +1,21 @@
 "use strict";
 
-function getComputerChoice() {
+//Global Variables
+let playerScore = 0;
+let computerScore = 0;
+///////////////////////////
+
+function getComputerOption() {
   const options = ["rock", "paper", "scissors"];
   const randomOption = Math.floor(Math.random() * 3);
   return options[randomOption];
 }
 
 // Decides Who wins the round
-function playRound(playerSelection, computerSelection) {
-  const clearPlayerSelection = playerSelection.toLowerCase();
+function getRoundResult(playerSelection, computerSelection) {
+  if (playerSelection === computerSelection) return "It was a draw!";
 
-  if (clearPlayerSelection === computerSelection) return "It was a draw!";
-
-  switch (clearPlayerSelection) {
+  switch (playerSelection) {
     case "rock":
       return computerSelection === "paper" ? "You lost!" : "You won!";
 
@@ -27,43 +30,38 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
-  alert(
-    "A new game began!\nThere are 5 rounds.\nYou have to type one of the 'Rock', 'Paper' Or 'Scissors'.\nGood luck!"
-  );
+function updateScore(roundResult) {
+  if (roundResult === "You won!") playerScore++;
+  if (roundResult === "You lost!") computerScore++;
+}
 
-  // Initialize variables
-  let round = 1;
-  let playerScore = 0;
-  let computerScore = 0;
-
-  for (round; round <= 5; round++) {
-    const playerOption = prompt(
-      `Round ${round}\nType your option.(Rock/Paper/Scissors)`
-    );
-    const roundResult = playRound(playerOption, getComputerChoice());
-    alert(roundResult);
-
-    //Changes the score if someone won or resets the round if there is an invalid input
-    if (
-      roundResult ===
-      "Invalid option! Please select one of Rock / Paper / Scissors"
-    )
-      round--;
-    if (roundResult === "You won!") playerScore++;
-    if (roundResult === "You lost!") computerScore++;
-  }
-
-  //Display the results of the match based on the score
+function displayResult() {
   const matchResult =
     playerScore > computerScore
       ? "You won"
       : playerScore < computerScore
       ? "You lost"
       : "It was a draw";
-  alert(
-    `The score was: Player (${playerScore}) - Computer (${computerScore})\n${matchResult}`
-  );
+  const scoreboard = document.querySelector(".scoreboard");
+  scoreboard.textContent = `The score was: Player (${playerScore}) - Computer (${computerScore})\n${matchResult}`;
 }
 
-game();
+function playRound(playerOption) {
+  const result = getRoundResult(playerOption, getComputerOption());
+  updateScore(result);
+  alert(result);
+}
+
+function game() {
+  const options = document.querySelectorAll(".options");
+
+  options.forEach((option) => {
+    option.addEventListener("click", () => {
+      const playerOption = option.dataset.option;
+      playRound(playerOption);
+    });
+  });
+}
+
+const startGame = document.querySelector("#start-game");
+startGame.addEventListener("click", game);
