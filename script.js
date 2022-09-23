@@ -1,5 +1,4 @@
 "use strict";
-console.log("Let the game begin");
 
 function getComputerChoice() {
   const options = ["rock", "paper", "scissors"];
@@ -16,15 +15,12 @@ function playRound(playerSelection, computerSelection) {
   switch (clearPlayerSelection) {
     case "rock":
       return computerSelection === "paper" ? "You lost!" : "You won!";
-      break;
 
     case "paper":
       return computerSelection === "scissors" ? "You lost!" : "You won!";
-      break;
 
     case "scissors":
       return computerSelection === "rock" ? "You lost!" : "You won!";
-      break;
 
     default:
       return "Invalid option! Please select one of Rock / Paper / Scissors";
