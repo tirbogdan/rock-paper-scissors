@@ -3,6 +3,12 @@
 //Global Variables
 let playerScore = 0;
 let computerScore = 0;
+const options = document.querySelectorAll(".options");
+const startGameButton = document.querySelector("#start-game");
+const resetGameButton = document.querySelector("#reset-game");
+const scoreboard = document.querySelector(".scoreboard");
+const finalScore = document.querySelector(".final-score");
+
 ///////////////////////////
 
 function getComputerOption() {
@@ -42,26 +48,47 @@ function displayResult() {
       : playerScore < computerScore
       ? "You lost"
       : "It was a draw";
-  const scoreboard = document.querySelector(".scoreboard");
-  scoreboard.textContent = `The score was: Player (${playerScore}) - Computer (${computerScore})\n${matchResult}`;
+  finalScore.textContent = `The score was: Player (${playerScore}) - Computer (${computerScore})\n${matchResult}`;
 }
 
 function playRound(playerOption) {
   const result = getRoundResult(playerOption, getComputerOption());
   updateScore(result);
-  alert(result);
+  scoreboard.textContent = `${result}
+  ${playerScore} : ${computerScore}`;
 }
 
-function game() {
-  const options = document.querySelectorAll(".options");
-
+function deactivateButtons() {
   options.forEach((option) => {
-    option.addEventListener("click", () => {
-      const playerOption = option.dataset.option;
-      playRound(playerOption);
-    });
+    option.removeEventListener("click", play);
   });
 }
 
-const startGame = document.querySelector("#start-game");
-startGame.addEventListener("click", game);
+function play() {
+  const playerOption = this.dataset.option;
+  playRound(playerOption);
+
+  if (playerScore > 4 || computerScore > 4) {
+    deactivateButtons();
+    displayResult();
+  }
+}
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  scoreboard.textContent = `${playerScore} : ${computerScore}`;
+  finalScore.textContent = "";
+  game();
+}
+
+function game() {
+  startGameButton.removeEventListener("clink", game);
+  scoreboard.textContent = `${playerScore} : ${computerScore}`;
+
+  options.forEach((option) => {
+    option.addEventListener("click", play);
+  });
+}
+
+startGameButton.addEventListener("click", game);
+resetGameButton.addEventListener("click", resetGame);
