@@ -7,7 +7,7 @@ const options = document.querySelectorAll(".options");
 const startGameButton = document.querySelector("#start-game");
 const resetGameButton = document.querySelector("#reset-game");
 const scoreboard = document.querySelector(".scoreboard");
-const finalScore = document.querySelector(".final-score");
+const gameZone = document.querySelector(".game-zone");
 
 ///////////////////////////
 
@@ -43,13 +43,22 @@ function updateScore(roundResult) {
 }
 
 function displayResult() {
+  //Create final score
+  const finalScoreElement = document.createElement("div");
+  finalScoreElement.classList.add("final-score");
+
+  //Decides the winner
   const matchResult =
     playerScore > computerScore
       ? "You won!"
       : playerScore < computerScore
       ? "You lost!"
       : "It was a draw!";
-  finalScore.innerHTML = `The score was:<br>Player (${playerScore}) - Computer (${computerScore})<br>${matchResult}`;
+
+  //Computes the final message
+  finalScoreElement.innerHTML = `The score was:<br>Player (${playerScore}) - Computer (${computerScore})<br>${matchResult}`;
+
+  gameZone.appendChild(finalScoreElement);
 }
 
 //Decides the winner of the round
@@ -79,7 +88,9 @@ function resetGame() {
   playerScore = 0;
   computerScore = 0;
   scoreboard.textContent = `Score: ${playerScore} : ${computerScore}`;
-  finalScore.textContent = "";
+
+  const finalScoreElement = document.querySelector(".final-score");
+  gameZone.removeChild(finalScoreElement);
   game();
 }
 
