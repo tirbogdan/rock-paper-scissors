@@ -76,13 +76,12 @@ function deactivateButtons() {
 
 //Starts the rounds if the game isn't finished yet
 function play() {
+  const playerOption = this.dataset.option;
+  playRound(playerOption);
   if (playerScore > 4 || computerScore > 4) {
     deactivateButtons();
     displayResult();
   }
-
-  const playerOption = this.dataset.option;
-  playRound(playerOption);
 }
 function resetGame() {
   playerScore = 0;
