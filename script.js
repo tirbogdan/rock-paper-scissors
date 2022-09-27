@@ -45,11 +45,11 @@ function updateScore(roundResult) {
 function displayResult() {
   const matchResult =
     playerScore > computerScore
-      ? "You won"
+      ? "You won!"
       : playerScore < computerScore
-      ? "You lost"
-      : "It was a draw";
-  finalScore.textContent = `The score was: Player (${playerScore}) - Computer (${computerScore})\n${matchResult}`;
+      ? "You lost!"
+      : "It was a draw!";
+  finalScore.innerHTML = `The score was:<br>Player (${playerScore}) - Computer (${computerScore})<br>${matchResult}`;
 }
 
 //Decides the winner of the round
@@ -67,13 +67,13 @@ function deactivateButtons() {
 
 //Starts the rounds if the game isn't finished yet
 function play() {
-  const playerOption = this.dataset.option;
-  playRound(playerOption);
-
   if (playerScore > 4 || computerScore > 4) {
     deactivateButtons();
     displayResult();
   }
+
+  const playerOption = this.dataset.option;
+  playRound(playerOption);
 }
 function resetGame() {
   playerScore = 0;
@@ -84,7 +84,7 @@ function resetGame() {
 }
 
 function game() {
-  startGameButton.removeEventListener("clink", game);
+  startGameButton.removeEventListener("click", game);
 
   scoreboard.textContent = `Score: ${playerScore} : ${computerScore}`;
 

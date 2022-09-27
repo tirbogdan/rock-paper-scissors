@@ -4,18 +4,29 @@
     <meta charset="UTF-8" />
     <title>Rock-Paper-Scissors</title>
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="game-buttons">
-      <button id="start-game">Start game</button>
-      <button id="reset-game">Reset-game</button>
+    <div class="game-zone">
+      <div class="game-buttons">
+        <button id="start-game">Start game</button>
+        <button id="reset-game">Reset-game</button>
+      </div>
+      <div class="scoreboard">
+        Welcome to my little game!<br />Press start game to begin
+      </div>
+      <div class="option-buttons">
+        <button class="options" data-option="rock" id="rock"></button>
+        <button class="options" data-option="paper" id="paper"></button>
+        <button class="options" data-option="scissors" id="scissors"></button>
+      </div>
+      <div class="final-score"></div>
     </div>
-    <div class="scoreboard"></div>
-    <div class="option-buttons">
-      <button class="options" data-option="rock">Rock</button>
-      <button class="options" data-option="paper">Paper</button>
-      <button class="options" data-option="scissors">Scissors</button>
-    </div>
-    <div class="final-score"></div>
   </body>
 </html>
