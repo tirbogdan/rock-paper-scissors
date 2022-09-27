@@ -11,6 +11,7 @@ const finalScore = document.querySelector(".final-score");
 
 ///////////////////////////
 
+// Chose a random option for the computer
 function getComputerOption() {
   const options = ["rock", "paper", "scissors"];
   const randomOption = Math.floor(Math.random() * 3);
@@ -51,11 +52,11 @@ function displayResult() {
   finalScore.textContent = `The score was: Player (${playerScore}) - Computer (${computerScore})\n${matchResult}`;
 }
 
+//Decides the winner of the round
 function playRound(playerOption) {
   const result = getRoundResult(playerOption, getComputerOption());
   updateScore(result);
-  scoreboard.textContent = `${result}
-  ${playerScore} : ${computerScore}`;
+  scoreboard.innerHTML = `${result}<br>Score: ${playerScore} : ${computerScore}`;
 }
 
 function deactivateButtons() {
@@ -64,6 +65,7 @@ function deactivateButtons() {
   });
 }
 
+//Starts the rounds if the game isn't finished yet
 function play() {
   const playerOption = this.dataset.option;
   playRound(playerOption);
@@ -76,14 +78,15 @@ function play() {
 function resetGame() {
   playerScore = 0;
   computerScore = 0;
-  scoreboard.textContent = `${playerScore} : ${computerScore}`;
+  scoreboard.textContent = `Score: ${playerScore} : ${computerScore}`;
   finalScore.textContent = "";
   game();
 }
 
 function game() {
   startGameButton.removeEventListener("clink", game);
-  scoreboard.textContent = `${playerScore} : ${computerScore}`;
+
+  scoreboard.textContent = `Score: ${playerScore} : ${computerScore}`;
 
   options.forEach((option) => {
     option.addEventListener("click", play);
